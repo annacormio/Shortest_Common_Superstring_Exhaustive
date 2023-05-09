@@ -1,16 +1,43 @@
-# This is a sample Python script.
+import random
+import itertools
 
-# Press Maiusc+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# INPUT
+def getGenome(length=1000):
+    genome = "".join(random.choice('ATCG') for i in range(length))
+    return genome
+
+def getSubstrings(seq, length=100):  # returns the list of subsequences of the genome of given length
+    L = []
+    for i in range(len(seq) - length + 1):
+        L.append(seq[i:i + length])
+    return L
+
+def permutations(l): #create a list of lists of all possible permutations of the subsequences
+    comb=[]
+    for subset in itertools.permutations(l, len(l)):
+        comb.append(list(subset))
+    return comb
+#OVERLAP
+def overlap(s1, s2):
+    over = ''
+    for i in range(3,len(s1) + 1):  # at least the first 3 characters must be equal so there is not point in checking below that
+        if s1[-i:] != s2[:i]:  # if the suffix of s2 is not the same as the prefix of s1
+            pass  # go on looking
+        else:  # when subsequence coincide --> overlapping sequence
+            over = s2[:i]  # the i-th subsequence is assigned as an overlap
+    return over
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
+
+
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    DNA=getGenome(6)
+    print(DNA)
+    subseq=getSubstrings(DNA,3)
+    print(subseq)
+    p=permutations(subseq)
+    print(p)
