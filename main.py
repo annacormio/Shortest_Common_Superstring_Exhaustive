@@ -22,7 +22,7 @@ def permutations(l): #create a list of lists of all possible permutations of the
 #OVERLAP
 def overlap_or_merge(s1, s2): #if 2 seq overlap they are joined with the overlap otherwise they are simply merged
     over = ''
-    for i in range(3,len(s1) + 1):  # at least the first 3 characters must be equal so there is not point in checking below that
+    for i in range(len(s1) + 1):  # allow overlap of 1 also
         if s1[-i:] != s2[:i]:  # if the suffix of s2 is not the same as the prefix of s1
             pass  # go on looking
         else:  # when subsequence coincide --> overlapping sequence
@@ -50,27 +50,22 @@ def buildSeq(p): #given a permutation it reconstruct the sequence
 def SCS(permutations): #returns the shortest common superstring comparing all joined permutations length
     scs=buildSeq(permutations[0]) #initialize scs
     min_l=len(scs) #initializing the SCS min length
-    for p in permutations: #for each permutaitn of suoerstring
+    for p in permutations: #for each permutation of superstring
         seq=buildSeq(p) #assemble the subseq in the permutation by overlap or merge
         if len(seq)<min_l: #if its len is less than the shortes common superstring length
-            scs=p #it becomes the shortes common superstirng
-            min_l=len(p)
+            scs=seq #it becomes the shortes common superstirng
+            min_l=len(seq)
     return scs
 
 #MAIN
 if __name__ == '__main__':
-    DNA=input('insert a DNA sequence (if u enter without inserting it I will generate one random)')
-    if DNA=='':
-        DNA=getGenome(12)
-    print(DNA)
-
+    DNA=getGenome(11)
     subseq=getSubstrings(DNA,6)
-    #print(subseq)
+    #subseq=['ATCGGA','TACCCA','AGCTAC','CGGATT','TTGCTA']
+    print(subseq)
     p=permutations(subseq)
     #print(p)
-
-
     scs=SCS(p)
     print(scs)
-
+#exhaustive search takes much more time
 
