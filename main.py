@@ -22,7 +22,7 @@ def permutations(l): #create a list of lists of all possible permutations of the
 #OVERLAP
 def overlap_or_merge(s1, s2): #if 2 seq overlap they are joined with the overlap otherwise they are simply merged
     over = ''
-    for i in range(len(s1) + 1):  # allow overlap of 1 also
+    for i in range(min(len(s1),len(s2)) + 1):
         if s1[-i:] != s2[:i]:  # if the suffix of s2 is not the same as the prefix of s1
             pass  # go on looking
         else:  # when subsequence coincide --> overlapping sequence
@@ -60,6 +60,7 @@ def SCS(permutations): #returns the shortest common superstring comparing all jo
 #MAIN
 if __name__ == '__main__':
     DNA=getGenome(11)
+    print(DNA)
     subseq=getSubstrings(DNA,6)
     #subseq=['ATCGGA','TACCCA','AGCTAC','CGGATT','TTGCTA']
     print(subseq)
